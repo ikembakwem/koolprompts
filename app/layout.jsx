@@ -1,4 +1,5 @@
 import "@styles/globals.css";
+import NavigationBar from "@components/NavigationBar";
 
 export const metadata = {
   title: "Koolprompts",
@@ -14,7 +15,10 @@ const RootLayout = ({ children }) => {
           <div className="gradient"></div>
         </div>
 
-        <main className="app">{children}</main>
+        <main className="app">
+          <NavigationBar />
+          {children}
+        </main>
       </body>
     </html>
   );
