@@ -7,6 +7,7 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const NavigationBar = () => {
   const [providers, setProviders] = useState(null);
+  const [toggleDropdown, settoggleDropdown] = useState(false);
   const isUserLoggedIn = true;
 
   useEffect(() => {
@@ -72,6 +73,53 @@ const NavigationBar = () => {
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
         {isUserLoggedIn ? userIsLoggedIn : userIsLoggedOut}
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="sm:hidden flex relative">
+        {isUserLoggedIn ? (
+          <div className="flex">
+            <Image
+              src="/assets/images/person-f.svg"
+              width={37}
+              height={37}
+              alt="User profile"
+              className="rounded-full"
+              onClick={() => settoggleDropdown((prev) => !prev)}
+            />
+
+            {toggleDropdown && (
+              <div className="dropdown">
+                <Link
+                  href="/profile"
+                  className="dropdown_link"
+                  onClick={() => settoggleDropdown(false)}
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href="/create-prompt"
+                  className="dropdown_link"
+                  onClick={() => settoggleDropdown(false)}
+                >
+                  Create Prompt
+                </Link>
+                <button
+                  className="mt-5 w-full black_btn"
+                  type="button"
+                  onClick={() => {
+                    settoggleDropdown(false);
+                    signOut();
+                  }}
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          userIsLoggedOut
+        )}
       </div>
     </nav>
   );
