@@ -1,5 +1,6 @@
 import "@styles/globals.css";
 import NavigationBar from "@components/NavigationBar";
+import Provider from "@components/Provider";
 
 export const metadata = {
   title: "Koolprompts",
@@ -11,14 +12,16 @@ const RootLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <div className="main">
-          <div className="gradient"></div>
-        </div>
+        <Provider>
+          <div className="main">
+            <div className="gradient"></div>
+          </div>
 
-        <main className="app">
-          <NavigationBar />
-          {children}
-        </main>
+          <main className="app">
+            <NavigationBar />
+            {children}
+          </main>
+        </Provider>
       </body>
     </html>
   );
