@@ -8,7 +8,7 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 const NavigationBar = () => {
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, settoggleDropdown] = useState(false);
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -31,7 +31,7 @@ const NavigationBar = () => {
 
       <Link href="/profile">
         <Image
-          src="/assets/images/person-f.svg"
+          src={session?.user.image}
           width={37}
           height={37}
           alt="User profile"
@@ -72,15 +72,15 @@ const NavigationBar = () => {
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? userIsLoggedIn : userIsLoggedOut}
+        {session?.user ? userIsLoggedIn : userIsLoggedOut}
       </div>
 
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/person-f.svg"
+              src={session?.user.image}
               width={37}
               height={37}
               alt="User profile"
